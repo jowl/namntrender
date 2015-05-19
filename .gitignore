@@ -1,2 +1,4 @@
 bower_components
 node_modules
+/public/css/bootstrap.css
+/public/js/lib.js
