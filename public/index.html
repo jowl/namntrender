@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Name trends</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/ng-tags-input.css" />
+    <link rel="stylesheet" type="text/css" href="css/ng-tags-input.bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
   </head>
   <body ng-controller="ApplicationController">
@@ -16,6 +18,14 @@
       </div>
       <div class="row">
         <div class="col-md-12">
+          <tags-input ng-model="filterValues" display-property="name" add-from-autocomplete-only="true" placeholder="Add a name">
+            <auto-complete source="loadNames($query)"></auto-complete>
+          </tags-input>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <svg></svg>
         </div>
       </div>
     </div>
