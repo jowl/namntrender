@@ -1,15 +1,10 @@
 (function() {
+    var angular = require('angular');
+    var ngTagsInput = require('ng-tags-input');
+    var d3 = require('d3');
+    var $ = jQuery = require('jquery');
+    var bootstrap = require('bootstrap');
     var module = angular.module('names', ['ngTagsInput']);
-
-    // module.filter('transform', function() {
-    //     return function(object, definition) {
-    //         object = extract(definition.key, object);
-    //         if (definition.format) {
-    //             object = definition.format(object);
-    //         }
-    //         return object;
-    //     };
-    // });
 
     module.factory('scb', ['$http', function($http) {
         var parseDate = d3.time.format("%Y").parse;
@@ -20,14 +15,14 @@
                     data: function() {
                         return $http({
                             "url": url,
-                            "data": {"query":[{"code":"Region","selection":{"filter":"vs:RegionRiket99","values":["00"]}},{"code":"AlderModer","selection":{"filter":"vs:ÅlderTotA","values":["tot"]}},{"code":"Kon","selection":{"filter":"item","values":["1","2"]}}],"response":{"format":"json"}},
+                            "data": {"query":[{"code":"Region","selection":{"filter":"item","values":["00"]}},{"code":"Kon","selection":{"filter":"all","values":["*"]}}],"response":{"format":"json"}},
                             "headers": {"Content-Type":"text/plain"},
                             "method": "POST"
                         }).then(function(response) {
                             return response.data.data.reduce(function(acc, curr) {
-                                var gender = curr.key[2];
+                                var gender = curr.key[1];
                                 var entry = acc[gender] || {};
-                                entry[curr.key[3]] = parseInt(curr.values[0])
+                                entry[curr.key[2]] = parseInt(curr.values[0]);
                                 acc[gender] = entry;
                                 return acc;
                             }, {});
