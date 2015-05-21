@@ -11,16 +11,20 @@ gulp.task("jshint", function () {
     .pipe(plug.jshint.reporter("jshint-stylish"));
 });
 
+gulp.task("bower", function() {
+  return plug.bower();
+});
+
 gulp.task("views", function(){
   return gulp.src(pkg.config.paths.views)
     .pipe(gulp.dest(pkg.config.paths.public));
 });
 
-gulp.task("stylesheets", function(){
+gulp.task("stylesheets", ["bower"], function(){
   return gulp.src([
-    "node_modules/bootstrap/dist/css/bootstrap.css",
-    "node_modules/ng-tags-input/build/ng-tags-input.css",
-    "node_modules/ng-tags-input/build/ng-tags-input.bootstrap.css",
+    "bower_components/bootstrap/dist/css/bootstrap.css",
+    "bower_components/ng-tags-input/ng-tags-input.css",
+    "bower_components/ng-tags-input/ng-tags-input.bootstrap.css",
     pkg.config.paths.stylesheets
   ])
     .pipe(plug.size({showFiles: true}))
@@ -28,8 +32,10 @@ gulp.task("stylesheets", function(){
     .pipe(gulp.dest(pkg.config.paths.public + "/css"));
 });
 
-gulp.task('scripts', ["jshint"], function() {
-  return browserify({entries: pkg.config.paths.main, debug: true}).bundle()
+gulp.task("scripts", ["bower", "jshint"], function() {
+  var bundler = browserify({entries: pkg.config.paths.main, debug: true});
+  bundler.transform("debowerify");
+  return bundler.bundle()
     .pipe(source(pkg.name + ".js"))
     .pipe(buffer())
     .pipe(plug.size({showFiles: true}))

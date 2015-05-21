@@ -1,4 +1,4 @@
-var angular = require('angular');
+var angular = require('./../../../bower_components/angular/index.js');
 var ngTagsInput = require('ng-tags-input');
 var d3 = require('d3');
 var $ = jQuery = require('jquery');
