@@ -58,4 +58,6 @@ gulp.task('clean', function() {
   return del([pkg.config.paths.public + '/*'])
 })
 
+gulp.task('serve', plug.serve(pkg.config.paths.public));
+
 gulp.task("default", ["stylesheets", "scripts", "views"]);
