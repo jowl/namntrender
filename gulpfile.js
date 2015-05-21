@@ -4,6 +4,7 @@ var plug = require("gulp-load-plugins")();
 var browserify = require("browserify");
 var source = require("vinyl-source-stream");
 var buffer = require("vinyl-buffer");
+var del = require("del");
 
 gulp.task("jshint", function () {
   return gulp.src(pkg.config.paths.main)
@@ -52,5 +53,9 @@ gulp.task('watch', function() {
   gulp.watch(pkg.config.paths.stylesheets, ['stylesheets']);
   gulp.watch(pkg.config.paths.views, ['views']);
 });
+
+gulp.task('clean', function() {
+  return del([pkg.config.paths.public + '/*'])
+})
 
 gulp.task("default", ["stylesheets", "scripts", "views"]);
