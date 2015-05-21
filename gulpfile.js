@@ -7,10 +7,18 @@ var buffer = require("vinyl-buffer");
 var del = require("del");
 
 gulp.task("jshint", function () {
-  return gulp.src(pkg.config.paths.scripts)
+  return gulp.src([pkg.config.paths.scripts, '!**/*.coffee'])
     .pipe(plug.jshint())
     .pipe(plug.jshint.reporter("jshint-stylish"));
 });
+
+gulp.task("coffeelint", function() {
+  return gulp.src([pkg.config.paths.scripts, '!**/*.js'])
+    .pipe(plug.coffeelint())
+    .pipe(plug.coffeelint.reporter());
+});
+
+gulp.task("lint", ["jshint", "coffeelint"]);
 
 gulp.task("bower", function() {
   return plug.bower();
@@ -33,7 +41,7 @@ gulp.task("stylesheets", ["bower"], function(){
     .pipe(gulp.dest(pkg.config.paths.public + "/css"));
 });
 
-gulp.task("scripts", ["bower", "jshint"], function() {
+gulp.task("scripts", ["bower", "lint"], function() {
   var bundler = browserify({entries: pkg.config.paths.main, debug: true});
   bundler.transform("coffeeify")
   bundler.transform("debowerify");
