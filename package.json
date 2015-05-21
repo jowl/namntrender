@@ -23,6 +23,7 @@
   "config": {
     "paths": {
       "main": "./app/assets/scripts/main.js",
+      "scripts": "./app/assets/scripts/**/*.js",
       "stylesheets": "./app/assets/stylesheets/*.css",
       "views": "./app/views/*.html",
       "public": "./public"

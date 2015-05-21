@@ -7,7 +7,7 @@ var buffer = require("vinyl-buffer");
 var del = require("del");
 
 gulp.task("jshint", function () {
-  return gulp.src(pkg.config.paths.main)
+  return gulp.src(pkg.config.paths.scripts)
     .pipe(plug.jshint())
     .pipe(plug.jshint.reporter("jshint-stylish"));
 });
@@ -49,7 +49,7 @@ gulp.task("scripts", ["bower", "jshint"], function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(pkg.config.paths.main, ['scripts']);
+  gulp.watch(pkg.config.paths.scripts, ['scripts']);
   gulp.watch(pkg.config.paths.stylesheets, ['stylesheets']);
   gulp.watch(pkg.config.paths.views, ['views']);
 });
