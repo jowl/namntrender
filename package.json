@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "devDependencies": {
     "browserify": "^10.2.1",
+    "coffeeify": "^1.1.0",
     "debowerify": "^1.2.1",
     "del": "^1.2.0",
     "gulp": "^3.8.11",
@@ -24,8 +25,8 @@
   },
   "config": {
     "paths": {
-      "main": "./app/assets/scripts/main.js",
-      "scripts": "./app/assets/scripts/**/*.js",
+      "main": "./app/assets/scripts/main.coffee",
+      "scripts": "./app/assets/scripts/**/*.{js,coffee}",
       "stylesheets": "./app/assets/stylesheets/*.css",
       "views": "./app/views/*.html",
       "public": "./public"

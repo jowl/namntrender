@@ -35,6 +35,7 @@ gulp.task("stylesheets", ["bower"], function(){
 
 gulp.task("scripts", ["bower", "jshint"], function() {
   var bundler = browserify({entries: pkg.config.paths.main, debug: true});
+  bundler.transform("coffeeify")
   bundler.transform("debowerify");
   return bundler.bundle()
     .pipe(source(pkg.name + ".js"))
