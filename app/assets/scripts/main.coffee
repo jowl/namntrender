@@ -7,5 +7,5 @@ bootstrap = require 'bootstrap'
 
 module = angular.module 'names', ['ngTagsInput']
 
-require './services/scb.js'
+require './services/scb.coffee'
 require './controllers/NamesController.js'
