@@ -49,7 +49,7 @@ var scb = function($http) {
           return prev;
         }, {});
       };
-
+      var meta;
       return {
         data: function(filterValues) {
           var request = {
@@ -61,7 +61,10 @@ var scb = function($http) {
           return $http(request).then(function(response) { return formatData(response.data); });
         },
         meta: function() {
-          return $http.get(url).then(function(response) { return formatMeta(response.data); });
+          if ( typeof meta == 'undefined' ) {
+            meta = $http.get(url).then(function(response) { return formatMeta(response.data); });
+          }
+          return meta;
         }
       };
     })()
