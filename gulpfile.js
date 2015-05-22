@@ -41,7 +41,7 @@ gulp.task("scripts", ["bower", "jshint"], function() {
     .pipe(buffer())
     .pipe(plug.size({showFiles: true}))
     .pipe(plug.sourcemaps.init({loadMaps: true}))
-    .pipe(plug.uglify())
+    .pipe(plug.if(plug.util.env.production, plug.uglify()))
     .pipe(plug.sourcemaps.write('./'))
     .pipe(plug.rename(function(path) { if (path.extname == '.js') path.extname = '.min.js'; }))
     .pipe(plug.size({showFiles: true}))
