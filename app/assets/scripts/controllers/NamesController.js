@@ -3,7 +3,7 @@ var module = angular.module('names');
 module.controller("NamesController", ["$scope", "$http", '$q', '$timeout', 'scb', function($scope, $http, $q, $timeout, scb) {
   $scope.filterValues = []
   $scope.loadNames = function(query) {
-    return scb.names.names().then(function(names){
+    return scb.names.meta().then(function(names){
       var matches = [];
       for ( var id in names ) {
         var name = names[id];
@@ -16,7 +16,7 @@ module.controller("NamesController", ["$scope", "$http", '$q', '$timeout', 'scb'
   };
   $scope.$watch('filterValues.length', function(size) {
     scb.names.data($scope.filterValues.map(function(item){return item.id})).then(function(data){
-      scb.names.names().then(function(names){
+      scb.names.meta().then(function(names){
         scb.births.data().then(function(births){
           var margin = {top: 20, right: 100, bottom: 30, left: 50},
               width = 960 - margin.left - margin.right,
