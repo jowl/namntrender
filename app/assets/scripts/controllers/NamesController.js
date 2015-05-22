@@ -3,7 +3,8 @@ var module = angular.module('names');
 module.controller("NamesController", ["$scope", "$http", '$q', '$timeout', 'scb', function($scope, $http, $q, $timeout, scb) {
   $scope.filterValues = []
   $scope.loadNames = function(query) {
-    return scb.names.meta().then(function(names){
+    return scb.names.meta().then(function(meta){
+      var names = meta.variables.Tilltalsnamn;
       var matches = [];
       for ( var id in names ) {
         var name = names[id];
@@ -16,7 +17,7 @@ module.controller("NamesController", ["$scope", "$http", '$q', '$timeout', 'scb'
   };
   $scope.$watch('filterValues.length', function(size) {
     scb.names.data($scope.filterValues.map(function(item){return item.id})).then(function(data){
-      scb.names.meta().then(function(names){
+      scb.names.meta().then(function(meta){
         scb.births.data().then(function(births){
           var margin = {top: 20, right: 100, bottom: 30, left: 50},
               width = 960 - margin.left - margin.right,
@@ -71,7 +72,7 @@ module.controller("NamesController", ["$scope", "$http", '$q', '$timeout', 'scb'
             .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.ratio) + ")"; })
             .attr("x", 3)
             .attr("dy", ".35em")
-            .text(function(d) { return names[d.name]; });
+            .text(function(d) { return meta.variables.Tilltalsnamn[d.name]; });
         })
       })
     });

@@ -41,13 +41,14 @@ var scb = function($http) {
         return data;
       };
       var formatMeta = function(data) {
-        var tilltalsnamn = data.variables.reduce(function(prev, curr) { return prev || (curr.code == "Tilltalsnamn" && curr); }, false);
-        return tilltalsnamn.values.reduce(function(prev, curr, i) {
-          if (curr[1] != '0' ) {
-            prev[curr] = tilltalsnamn.valueTexts[i];
-          }
-          return prev;
+        var variables = data.variables.reduce(function(variables, variable) {
+          variables[variable.code] = variable.values.reduce(function(values, value, i) {
+            values[value] = variable.valueTexts[i];
+            return values;
+          }, {});
+          return variables;
         }, {});
+        return {variables: variables};
       };
       var meta;
       return {
