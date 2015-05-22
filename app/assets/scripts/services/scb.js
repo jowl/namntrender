@@ -34,7 +34,7 @@ var scb = function($http) {
 
           var value = curr.values[0];
           if ( value != '..' ) {
-            acc.push({key: key, value: parseInt(value)});
+            acc.push({key: key, value: +value});
           }
           return acc;
         }, []);
