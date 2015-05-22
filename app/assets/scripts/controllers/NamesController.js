@@ -7,6 +7,9 @@ module.controller("NamesController", ["$scope", "$http", '$q', '$timeout', 'scb'
       var names = meta.variables.Tilltalsnamn;
       var matches = [];
       for ( var id in names ) {
+        if ( id[1] == '0' ) { // names on the top 10 list (dups)
+          continue;
+        }
         var name = names[id];
         if ( name.toLowerCase().indexOf(query.toLowerCase()) > -1  ) {
           matches.push({id: id, name: name});
