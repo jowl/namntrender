@@ -1,9 +1,7 @@
-var module = angular.module('names');
-
-module.controller("NamesController", ["$scope", "$http", '$q', '$timeout', 'scb', function($scope, $http, $q, $timeout, scb) {
+var NamesController = function($scope, $http, $q, $timeout, scb) {
   $scope.filterValues = []
   $scope.loadNames = function(query) {
-    return scb.names.meta().then(function(meta){
+    var extractNames = function(meta) {
       var names = meta.variables.Tilltalsnamn;
       var matches = [];
       for ( var id in names ) {
@@ -16,9 +14,10 @@ module.controller("NamesController", ["$scope", "$http", '$q', '$timeout', 'scb'
         }
       }
       return matches;
-    });
+    };
+    return scb.names.meta().then(extractNames);
   };
-  $scope.$watch('filterValues.length', function(size) {
+  var updateGraph = function() {
     scb.names.data($scope.filterValues.map(function(item){return item.id})).then(function(data){
       scb.names.meta().then(function(meta){
         scb.births.data().then(function(births){
@@ -79,5 +78,8 @@ module.controller("NamesController", ["$scope", "$http", '$q', '$timeout', 'scb'
         })
       })
     });
-  });
-}]);
+  }
+  $scope.$watch('filterValues.length', updateGraph);
+}
+
+angular.module('names').controller("NamesController", ["$scope", "$http", '$q', '$timeout', 'scb', NamesController]);
