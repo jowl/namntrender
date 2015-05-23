@@ -25,7 +25,7 @@ scb = ($http) ->
         addKey = (key, value, i) -> key[columns[i].code] = value; key
         key = entry.key.reduce(addKey, {})
         value = entry.values[0]
-        arr.push {key: key, value: +value} if value != '..'
+        arr.push {key: key, value: +value} unless value == '..'
         arr
       table.data.reduce(addEntry, [])
     formatMeta = (data) ->
@@ -51,4 +51,4 @@ scb = ($http) ->
     meta: getMeta
   )()
 
-angular.module('names').factory('scb', ['$http', scb]);
+angular.module('names').factory('scb', ['$http', scb])
