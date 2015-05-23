@@ -11,8 +11,9 @@ seriesLink = (scope, element, attrs) ->
   line = d3.svg.line().x((d) -> x(d.date)).y((d) -> y(d.ratio))
 
   update = () ->
+    series = scope.series
     element.selectAll('*').remove()
-    return unless d3.keys(scope.series).length > 0
+    return unless d3.keys(series.metrics).length > 0
     svg = element
       .append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -20,17 +21,17 @@ seriesLink = (scope, element, attrs) ->
       .append("g")
       .attr("class", "graph")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-    x.domain(scope.meta.dateRange)
-    y.domain(scope.meta.valueRange)
+    x.domain(series.meta.dateRange)
+    y.domain(series.meta.valueRange)
     svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
 
-    color = d3.scale.category10().domain(d3.keys(scope.series))
+    color = d3.scale.category10().domain(d3.keys(series.metrics))
 
     slice = svg.selectAll(".slice")
-      .data(d3.entries(scope.series))
+      .data(d3.entries(series.metrics))
       .enter().append("g")
       .attr("class", "slice")
 
@@ -44,7 +45,7 @@ seriesLink = (scope, element, attrs) ->
       .attr("transform", (d) -> "translate(" + x(d.value.date) + "," + y(d.value.ratio) + ")")
       .attr("x", 3)
       .attr("dy", ".35em")
-      .text((d) -> scope.meta.names[d.name])
+      .text((d) -> series.meta.names[d.name])
 
   scope.$watch((() -> scope.series), update, true)
 
@@ -52,7 +53,6 @@ series = () ->
   restrict: 'E'
   scope:
     series: '='
-    meta: '='
   link: seriesLink
 
 angular.module('names').directive('nameSeries', series)
