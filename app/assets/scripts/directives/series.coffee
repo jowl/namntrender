@@ -2,17 +2,17 @@ d3 = require('d3')
 
 seriesLink = (scope, element, attrs) ->
   element = d3.select(element[0])
-  margin = {top: 20, right: 100, bottom: 30, left: 50}
-  width = 960 - margin.left - margin.right
-  height = 500 - margin.top - margin.bottom
-  x = d3.time.scale().range([0, width])
-  y = d3.scale.linear().range([height, 0]).domain([0, 0.1])
-  xAxis = d3.svg.axis().scale(x).orient("bottom")
-  line = d3.svg.line().x((d) -> x(d[scope.seriesX])).y((d) -> y(d[scope.seriesY]))
-
   update = () ->
     element.selectAll('*').remove()
     return unless d3.keys(scope.series).length > 0
+    margin = {top: 20, right: 100, bottom: 30, left: 50}
+    parentRect = element[0][0].parentNode.getBoundingClientRect()
+    width = parentRect.width - margin.left - margin.right
+    height = 500 - margin.top - margin.bottom
+    x = d3.time.scale().range([0, width])
+    y = d3.scale.linear().range([height, 0]).domain([0, 0.1])
+    xAxis = d3.svg.axis().scale(x).orient("bottom")
+    line = d3.svg.line().x((d) -> x(d[scope.seriesX])).y((d) -> y(d[scope.seriesY]))
     svg = element
       .append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -48,6 +48,7 @@ seriesLink = (scope, element, attrs) ->
       .text((d) -> d.name)
 
   scope.$watch((() -> scope.series), update, true)
+  d3.select(window).on('resize', update)
 
 series = () ->
   restrict: 'E'
