@@ -21,15 +21,20 @@ NamesController = ($scope, $q, scb) ->
         series[id] ||= []
         year = d.key.Tid
         gender = id[0]
-        entry = {
+        findEntry = (found, cand) ->
+          found || cand.key.Kon == gender && cand.key.Tid == year && cand
+        series[id].push(
           date: parseDate(year),
-          ratio: d.value / data.births[gender][year],
-        }
-        series[id].push(entry)
+          ratio: d.value / data.births.reduce(findEntry, false).value,
+        )
         series
       $scope.series = []
       for id, series of data.metrics.reduce(addSeries, {})
-        $scope.series.push(id: id, meta: {name: data.meta.variables.Tilltalsnamn[id]}, series: series)
+        $scope.series.push(
+          id: id,
+          meta: {name: data.meta.variables.Tilltalsnamn[id]},
+          series: series
+        )
     promises = {
       metrics: scb.names.data(filterIds),
       meta: scb.names.meta(),
