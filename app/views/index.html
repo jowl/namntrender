@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-md-12">
           <tags-input ng-model="filterValues" display-property="name" add-from-autocomplete-only="true" placeholder="Add a name">
-            <auto-complete source="loadNames($query)"></auto-complete>
+            <auto-complete source="loadNames($query)" min-length="1"></auto-complete>
           </tags-input>
         </div>
       </div>
