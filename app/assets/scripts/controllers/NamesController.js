@@ -19,6 +19,10 @@ var NamesController = function($scope, $http, $q, $timeout, scb) {
     return scb.names.meta().then(extractNames);
   };
   var loadSeries = function() {
+    var filterIds = $scope.filterValues.map(function(item){return item.id});
+    if ( filterIds.length === 0 ) {
+      return;
+    }
     var buildSeries = function(data) {
       var parseDate = d3.time.format("%Y").parse;
       var addSeries = function(metrics, d) {
@@ -34,7 +38,7 @@ var NamesController = function($scope, $http, $q, $timeout, scb) {
       $scope.series = data.metrics.reduce(addSeries, {});
     }
     var promises = {
-      metrics: scb.names.data($scope.filterValues.map(function(item){return item.id})),
+      metrics: scb.names.data(filterIds),
       meta: scb.names.meta(),
       births: scb.births.data()
     }
