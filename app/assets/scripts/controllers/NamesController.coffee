@@ -15,6 +15,7 @@ NamesController = ($scope, $q, scb) ->
     namesTable.meta().then(extractNames)
   loadSeries = () ->
     filterIds = $scope.filterValues.map((item) -> item.id)
+    $scope.series = []
     return if filterIds.length is 0
     buildSeries = (data) ->
       parseDate = d3.time.format('%Y').parse
@@ -30,7 +31,6 @@ NamesController = ($scope, $q, scb) ->
           ratio: d.value / data.births.reduce(findEntry, false).value,
         )
         series
-      $scope.series = []
       for id, series of data.metrics.reduce(addSeries, {})
         $scope.series.push(
           id: id,
