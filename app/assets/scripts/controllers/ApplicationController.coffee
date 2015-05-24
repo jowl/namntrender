@@ -15,40 +15,43 @@ ApplicationController = ($scope, $q, scb) ->
     namesTable.meta().then(extractNames)
   loadSeries = () ->
     filterIds = $scope.filterValues.map((item) -> item.id)
-    $scope.series = []
-    return if filterIds.length is 0
-    buildSeries = (data) ->
-      parseDate = d3.time.format('%Y').parse
-      addSeries = (series, d) ->
-        id = d.key.Tilltalsnamn
-        series[id] ||= []
-        year = d.key.Tid
-        gender = id[0]
-        findEntry = (found, cand) ->
-          found || cand.key.Kon == gender && cand.key.Tid == year && cand
-        series[id].push(
-          date: parseDate(year),
-          ratio: d.value / data.births.reduce(findEntry, false).value,
-        )
-        series
-      for id, series of data.metrics.reduce(addSeries, {})
-        $scope.series.push(
-          id: id,
-          meta: {name: data.meta.variables.Tilltalsnamn[id]},
-          series: series
-        )
-    promises = {
-      metrics: namesTable.data(
-        {"code":"Tilltalsnamn","selection":{"filter":"item","values":filterIds}},
-        {"code":"ContentsCode","selection":{"filter":"item","values":["BE0001AJ"]}},
-      ),
-      meta: namesTable.meta(),
-      births: birthsTable.data(
-        {"code":"Region","selection":{"filter":"item","values":["00"]}},
-        {"code":"Kon","selection":{"filter":"all","values":["*"]}},
-      ),
-    }
-    $q.all(promises).then(buildSeries)
+    if filterIds.length > 0
+      buildSeries = (data) ->
+        parseDate = d3.time.format('%Y').parse
+        addSeries = (series, d) ->
+          id = d.key.Tilltalsnamn
+          series[id] ||= []
+          year = d.key.Tid
+          gender = id[0]
+          findEntry = (found, cand) ->
+            found || cand.key.Kon == gender && cand.key.Tid == year && cand
+          series[id].push(
+            date: parseDate(year),
+            ratio: d.value / data.births.reduce(findEntry, false).value,
+          )
+          series
+        allSeries = []
+        for id, series of data.metrics.reduce(addSeries, {})
+          allSeries.push(
+            id: id,
+            meta: {name: data.meta.variables.Tilltalsnamn[id]},
+            series: series
+          )
+        $scope.series = allSeries
+      promises = {
+        metrics: namesTable.data(
+          {"code":"Tilltalsnamn","selection":{"filter":"item","values":filterIds}},
+          {"code":"ContentsCode","selection":{"filter":"item","values":["BE0001AJ"]}},
+        ),
+        meta: namesTable.meta(),
+        births: birthsTable.data(
+          {"code":"Region","selection":{"filter":"item","values":["00"]}},
+          {"code":"Kon","selection":{"filter":"all","values":["*"]}},
+        ),
+      }
+      $q.all(promises).then(buildSeries)
+    else
+      $scope.series = []
   $scope.$watch('filterValues.length', loadSeries)
 
 angular.module('name-trends').controller('ApplicationController', ['$scope', '$q', 'scb', ApplicationController])
