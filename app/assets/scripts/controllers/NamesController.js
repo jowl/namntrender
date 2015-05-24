@@ -21,24 +21,17 @@ var NamesController = function($scope, $http, $q, $timeout, scb) {
   var loadSeries = function() {
     var buildSeries = function(data) {
       var parseDate = d3.time.format("%Y").parse;
-      var seriesMeta = {}
-      seriesMeta.dateRange = [];
-      seriesMeta.valueRange = [];
-      var metrics = data.metrics.reduce(function(metrics, d) {
+      var addSeries = function(metrics, d) {
         var year = d.key.Tid;
         var id = d.key.Tilltalsnamn;
-        var series = metrics[id] || [];
+        var name = data.meta.variables.Tilltalsnamn[id];
+        var series = metrics[name] || [];
         var entry = {date: parseDate(year), ratio: d.value / data.births[id[0]][year]};
         series.push(entry);
-        if ( typeof seriesMeta.dateRange[0] == "undefined" || seriesMeta.dateRange[0] > entry.date ) { seriesMeta.dateRange[0] = entry.date }
-        if ( typeof seriesMeta.dateRange[1] == "undefined" || seriesMeta.dateRange[1] < entry.date ) { seriesMeta.dateRange[1] = entry.date }
-        if ( typeof seriesMeta.valueRange[0] == "undefined" || seriesMeta.valueRange[0] > entry.ratio ) { seriesMeta.valueRange[0] = entry.ratio }
-        if ( typeof seriesMeta.valueRange[1] == "undefined" || seriesMeta.valueRange[1] < entry.ratio ) { seriesMeta.valueRange[1] = entry.ratio }
-        metrics[id] = series;
+        metrics[name] = series;
         return metrics;
-      }, {});
-      seriesMeta.names = data.meta.variables.Tilltalsnamn;
-      $scope.series = {metrics: metrics, meta: seriesMeta};
+      }
+      $scope.series = data.metrics.reduce(addSeries, {});
     }
     var promises = {
       metrics: scb.names.data($scope.filterValues.map(function(item){return item.id})),
