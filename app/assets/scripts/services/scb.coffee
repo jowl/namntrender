@@ -5,7 +5,7 @@ scb = ($http) ->
       request = {
         url: url,
         data: {"query":[{"code":"Region","selection":{"filter":"item","values":["00"]}},{"code":"Kon","selection":{"filter":"all","values":["*"]}}],"response":{"format":"json"}},
-        headers: {"Content-Type":"text/plain"},
+        headers: {"Content-Type":"text/plain"}, # to avoid OPTION request
         method: "POST"
       }
       $http(request).then (response) ->
@@ -25,7 +25,7 @@ scb = ($http) ->
         addKey = (key, value, i) -> key[columns[i].code] = value; key
         key = entry.key.reduce(addKey, {})
         value = entry.values[0]
-        arr.push {key: key, value: +value} unless value == '..'
+        arr.push(key: key, value: +value) unless value == '..'
         arr
       table.data.reduce(addEntry, [])
     formatMeta = (data) ->
@@ -35,13 +35,13 @@ scb = ($http) ->
           values
         variables[variable.code] = variable.values.reduce(addValueMapping, {})
         variables
-      {variables: data.variables.reduce(addVariable, {})}
+      variables: data.variables.reduce(addVariable, {})
     meta = undefined
     getData = (filterValues) ->
       request = {
         url: url,
         data: {"query":[{"code":"Tilltalsnamn","selection":{"filter":"item","values":filterValues}},{"code":"ContentsCode","selection":{"filter":"item","values":["BE0001AJ"]}}],"response":{"format":"json"}},
-        headers: {"Content-Type":"text/plain"},
+        headers: {"Content-Type":"text/plain"}, # to avoid OPTION request
         method: "POST"
       }
       $http(request).then((response) -> formatData(response.data))
