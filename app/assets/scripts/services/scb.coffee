@@ -30,24 +30,9 @@ scb = ($http) ->
         variables
       variables: data.variables.reduce(addVariable, {})
     meta[url] ?= $http.get(url).then((response) -> formatMeta(response.data))
-  births: (() ->
-    url = 'http://api.scb.se/OV0104/v1/doris/sv/ssd/START/BE/BE0101/BE0101H/FoddaK'
-    data: () ->
-      query = [
-        {"code":"Region","selection":{"filter":"item","values":["00"]}},
-        {"code":"Kon","selection":{"filter":"all","values":["*"]}},
-      ]
-      getData(url, query)
-  )(),
-  names: (() ->
-    url = "http://api.scb.se/OV0104/v1/doris/sv/ssd/START/BE/BE0001/BE0001T05AR"
-    data: (filterValues) ->
-      query = [
-        {"code":"Tilltalsnamn","selection":{"filter":"item","values":filterValues}},
-        {"code":"ContentsCode","selection":{"filter":"item","values":["BE0001AJ"]}},
-      ]
+  table: (url) ->
+    data: (query...) ->
       getData(url, query)
     meta: () -> getMeta(url)
-  )()
 
 angular.module('names').factory('scb', ['$http', scb])

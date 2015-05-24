@@ -1,4 +1,6 @@
 NamesController = ($scope, $q, scb) ->
+  namesTable = scb.table('http://api.scb.se/OV0104/v1/doris/sv/ssd/START/BE/BE0001/BE0001T05AR')
+  birthsTable = scb.table('http://api.scb.se/OV0104/v1/doris/sv/ssd/START/BE/BE0101/BE0101H/FoddaK')
   $scope.series = {}
   $scope.filterValues = []
   $scope.loadNames = (query) ->
@@ -10,7 +12,7 @@ NamesController = ($scope, $q, scb) ->
         if name.toLowerCase().indexOf(query.toLowerCase()) > -1
           matches.push(id: id, name: name)
       matches
-    scb.names.meta().then(extractNames)
+    namesTable.meta().then(extractNames)
   loadSeries = () ->
     filterIds = $scope.filterValues.map((item) -> item.id)
     return if filterIds.length is 0
@@ -36,9 +38,15 @@ NamesController = ($scope, $q, scb) ->
           series: series
         )
     promises = {
-      metrics: scb.names.data(filterIds),
-      meta: scb.names.meta(),
-      births: scb.births.data(),
+      metrics: namesTable.data(
+        {"code":"Tilltalsnamn","selection":{"filter":"item","values":filterIds}},
+        {"code":"ContentsCode","selection":{"filter":"item","values":["BE0001AJ"]}},
+      ),
+      meta: namesTable.meta(),
+      births: birthsTable.data(
+        {"code":"Region","selection":{"filter":"item","values":["00"]}},
+        {"code":"Kon","selection":{"filter":"all","values":["*"]}},
+      ),
     }
     $q.all(promises).then(buildSeries)
   $scope.$watch('filterValues.length', loadSeries)
