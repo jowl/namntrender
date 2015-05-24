@@ -1,4 +1,4 @@
-NamesController = ($scope, $q, scb) ->
+ApplicationController = ($scope, $q, scb) ->
   namesTable = scb.table('http://api.scb.se/OV0104/v1/doris/sv/ssd/START/BE/BE0001/BE0001T05AR')
   birthsTable = scb.table('http://api.scb.se/OV0104/v1/doris/sv/ssd/START/BE/BE0101/BE0101H/FoddaK')
   $scope.series = {}
@@ -51,4 +51,4 @@ NamesController = ($scope, $q, scb) ->
     $q.all(promises).then(buildSeries)
   $scope.$watch('filterValues.length', loadSeries)
 
-angular.module('names').controller('NamesController', ['$scope', '$q', 'scb', NamesController])
+angular.module('name-trends').controller('ApplicationController', ['$scope', '$q', 'scb', ApplicationController])

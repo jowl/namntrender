@@ -4,8 +4,8 @@ $ = jQuery = window.jQuery = require('jquery')
 
 bootstrap = require('bootstrap')
 
-module = angular.module('names', ['ngTagsInput'])
+module = angular.module('name-trends', ['ngTagsInput'])
 
 require('./services/scb.coffee')
-require('./controllers/NamesController.coffee')
-require('./directives/series.coffee')
+require('./controllers/ApplicationController.coffee')
+require('./directives/seriesChart.coffee')

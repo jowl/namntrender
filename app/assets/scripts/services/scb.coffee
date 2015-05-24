@@ -35,4 +35,4 @@ scb = ($http) ->
       getData(url, query)
     meta: () -> getMeta(url)
 
-angular.module('names').factory('scb', ['$http', scb])
+angular.module('name-trends').factory('scb', ['$http', scb])

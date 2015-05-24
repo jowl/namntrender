@@ -12,7 +12,9 @@ seriesLink = (scope, element, attrs) ->
     x = d3.time.scale().range([0, width])
     y = d3.scale.linear().range([height, 0]).domain([0, 0.1])
     xAxis = d3.svg.axis().scale(x).orient("bottom")
-    line = d3.svg.line().x((d) -> x(d[scope.seriesX])).y((d) -> y(d[scope.seriesY]))
+    line = d3.svg.line()
+      .x((d) -> x(d[scope.seriesX]))
+      .y((d) -> y(d[scope.seriesY]))
     svg = element
       .append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -20,7 +22,7 @@ seriesLink = (scope, element, attrs) ->
       .append("g")
       .attr("class", "graph")
       .attr("transform", "translate(#{margin.left},#{margin.top})")
-    allMetrics = scope.series.reduce(((flat, entry) -> flat.concat(entry.series)), [])
+    allMetrics = scope.series.reduce(((arr, d) -> arr.concat(d.series)), [])
     x.domain(d3.extent(allMetrics, (d) -> d[scope.seriesX]))
     y.domain(d3.extent(allMetrics, (d) -> d[scope.seriesY]))
     svg.append("g")
@@ -50,7 +52,7 @@ seriesLink = (scope, element, attrs) ->
   scope.$watch((() -> scope.series), update, true)
   d3.select(window).on('resize', update)
 
-series = () ->
+seriesChart = () ->
   restrict: 'E'
   scope:
     series: '='
@@ -58,4 +60,4 @@ series = () ->
     seriesY: '@'
   link: seriesLink
 
-angular.module('names').directive('ntSeries', series)
+angular.module('name-trends').directive('seriesChart', seriesChart)

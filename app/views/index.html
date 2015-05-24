@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html ng-app="names" lang="en">
+<html ng-app="name-trends" lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +8,10 @@
     <title>Name trends</title>
     <link rel="stylesheet" type="text/css" href="css/main.css" />
   </head>
-  <body ng-controller="NamesController">
+  <body ng-controller="ApplicationController">
     <div class="container">
       <div class="page-header">
-        <h1>Name trends <small>powered by SCB</small></h1>
+        <h1>Name trends</h1>
       </div>
       <div class="row">
         <div class="col-md-12">
@@ -22,7 +22,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <nt-series series="series" series-x="date" series-y="ratio" />
+          <series-chart series="series" series-x="date" series-y="ratio" />
         </div>
       </div>
     </div>
