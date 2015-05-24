@@ -16,20 +16,20 @@ NamesController = ($scope, $q, scb) ->
     return if filterIds.length is 0
     buildSeries = (data) ->
       parseDate = d3.time.format('%Y').parse
-      addSeries = (metrics, d) ->
-        year = d.key.Tid
+      addSeries = (series, d) ->
         id = d.key.Tilltalsnamn
+        series[id] ||= []
+        year = d.key.Tid
         gender = id[0]
-        name = data.meta.variables.Tilltalsnamn[id]
-        series = metrics[name] || []
         entry = {
           date: parseDate(year),
           ratio: d.value / data.births[gender][year],
         }
-        series.push(entry)
-        metrics[name] = series
-        metrics
-      $scope.series = data.metrics.reduce(addSeries, {})
+        series[id].push(entry)
+        series
+      $scope.series = []
+      for id, series of data.metrics.reduce(addSeries, {})
+        $scope.series.push(id: id, meta: {name: data.meta.variables.Tilltalsnamn[id]}, series: series)
     promises = {
       metrics: scb.names.data(filterIds),
       meta: scb.names.meta(),
