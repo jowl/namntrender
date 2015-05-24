@@ -8,7 +8,7 @@ seriesLink = (scope, element, attrs) ->
   x = d3.time.scale().range([0, width])
   y = d3.scale.linear().range([height, 0]).domain([0, 0.1])
   xAxis = d3.svg.axis().scale(x).orient("bottom")
-  line = d3.svg.line().x((d) -> x(d.date)).y((d) -> y(d.ratio))
+  line = d3.svg.line().x((d) -> x(d[scope.seriesX])).y((d) -> y(d[scope.seriesY]))
 
   update = () ->
     element.selectAll('*').remove()
@@ -21,8 +21,8 @@ seriesLink = (scope, element, attrs) ->
       .attr("class", "graph")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     allMetrics = d3.values(scope.series).reduce((flat, arr) -> flat.concat(arr))
-    x.domain(d3.extent(allMetrics, (d) -> d.date))
-    y.domain(d3.extent(allMetrics, (d) -> d.ratio))
+    x.domain(d3.extent(allMetrics, (d) -> d[scope.seriesX]))
+    y.domain(d3.extent(allMetrics, (d) -> d[scope.seriesY]))
     svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
@@ -42,7 +42,7 @@ seriesLink = (scope, element, attrs) ->
 
     slice.append("text")
       .datum((d) -> {name: d.key, value: d.value[d.value.length - 1]})
-      .attr("transform", (d) -> "translate(" + x(d.value.date) + "," + y(d.value.ratio) + ")")
+      .attr("transform", (d) -> "translate(" + x(d.value[scope.seriesX]) + "," + y(d.value[scope.seriesY]) + ")")
       .attr("x", 3)
       .attr("dy", ".35em")
       .text((d) -> d.name)
@@ -53,6 +53,8 @@ series = () ->
   restrict: 'E'
   scope:
     series: '='
+    seriesX: '@'
+    seriesY: '@'
   link: seriesLink
 
-angular.module('names').directive('nameSeries', series)
+angular.module('names').directive('ntSeries', series)
