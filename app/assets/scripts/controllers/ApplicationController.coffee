@@ -1,6 +1,6 @@
 ApplicationController = ($scope, $q, scb) ->
-  namesTable = scb.table('http://api.scb.se/OV0104/v1/doris/sv/ssd/START/BE/BE0001/BE0001T05AR')
-  birthsTable = scb.table('http://api.scb.se/OV0104/v1/doris/sv/ssd/START/BE/BE0101/BE0101H/FoddaK')
+  namesTable = scb.table('http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0001/BE0001T05AR')
+  birthsTable = scb.table('http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101H/FoddaK')
   $scope.series = {}
   $scope.filterValues = []
   $scope.loadNames = (query) ->
