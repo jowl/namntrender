@@ -54,4 +54,4 @@ ApplicationController = ($scope, $q, scb) ->
       $scope.series = []
   $scope.$watch('filterValues.length', loadSeries)
 
-angular.module('name-trends').controller('ApplicationController', ['$scope', '$q', 'scb', ApplicationController])
+angular.module('namntrender').controller('ApplicationController', ['$scope', '$q', 'scb', ApplicationController])

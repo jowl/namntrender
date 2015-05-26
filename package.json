@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "name-trends",
+  "name": "namntrender",
   "version": "0.0.0",
   "devDependencies": {
     "browserify": "^10.2.1",

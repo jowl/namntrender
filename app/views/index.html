@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 
-<html ng-app="name-trends" lang="en">
+<html ng-app="namntrender" lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Name trends</title>
+    <title>Namntrender</title>
     <link rel="stylesheet" type="text/css" href="css/main.css" />
   </head>
   <body ng-controller="ApplicationController">
     <div class="container">
       <div class="page-header">
-        <h1>Name trends</h1>
+        <h1>Namntrender</h1>
       </div>
       <div class="row">
         <div class="col-md-12">
-          <tags-input ng-model="filterValues" display-property="name" add-from-autocomplete-only="true" placeholder="Add a name">
+          <tags-input ng-model="filterValues" display-property="name" add-from-autocomplete-only="true" placeholder="Lägg till ett namn">
             <auto-complete source="loadNames($query)" min-length="1"></auto-complete>
           </tags-input>
         </div>
@@ -26,6 +26,6 @@
         </div>
       </div>
     </div>
-    <script src="js/name-trends.min.js" charset="utf-8"></script>
+    <script src="js/namntrender.min.js" charset="utf-8"></script>
   </body>
 </html>

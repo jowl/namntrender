@@ -60,4 +60,4 @@ seriesChart = () ->
     seriesY: '@'
   link: seriesLink
 
-angular.module('name-trends').directive('seriesChart', seriesChart)
+angular.module('namntrender').directive('seriesChart', seriesChart)
