@@ -5,7 +5,7 @@ seriesLink = (scope, element, attrs) ->
   update = () ->
     element.selectAll('*').remove()
     return unless d3.keys(scope.series).length > 0
-    margin = {top: 20, right: 50, bottom: 30, left: 20}
+    margin = {top: 20, right: 60, bottom: 30, left: 20}
     clientRect = element[0][0].getBoundingClientRect()
     width = clientRect.width - margin.left - margin.right
     height = clientRect.height - margin.top - margin.bottom
