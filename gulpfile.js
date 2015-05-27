@@ -31,12 +31,11 @@ gulp.task("views", function(){
 
 gulp.task("stylesheets", ["bower"], function(){
   return gulp.src([
-    "bower_components/bootstrap/dist/css/bootstrap.css",
     "bower_components/ng-tags-input/ng-tags-input.css",
-    "bower_components/ng-tags-input/ng-tags-input.bootstrap.css",
     pkg.config.paths.stylesheets
   ])
     .pipe(plug.size({showFiles: true}))
+    .pipe(plug.sass())
     .pipe(plug.concatCss("main.css"))
     .pipe(gulp.dest(pkg.config.paths.public + "/css"));
 });

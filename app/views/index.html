@@ -9,23 +9,17 @@
     <link rel="stylesheet" type="text/css" href="css/main.css" />
   </head>
   <body ng-controller="ApplicationController">
-    <div class="container">
-      <div class="page-header">
-        <h1>Namntrender</h1>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <tags-input ng-model="filterValues" display-property="name" add-from-autocomplete-only="true" placeholder="Lägg till ett namn">
-            <auto-complete source="loadNames($query)" min-length="1"></auto-complete>
-          </tags-input>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <series-chart series="series" series-x="date" series-y="ratio" />
-        </div>
-      </div>
-    </div>
+    <header>
+      <span>Namntrender</span>
+      <tags-input ng-model="filterValues" display-property="name" add-from-autocomplete-only="true" placeholder="Lägg till ett namn">
+        <auto-complete source="loadNames($query)" min-length="1"></auto-complete>
+      </tags-input>
+    </header>
+    <series-chart series="series" series-x="date" series-y="ratio"></series-chart>
+    <footer>
+      <span>Grafen visar andelen nyfödda flickor/pojkar som givits namnet baserat på data från <a href="http://scb.se/api" target="_blank">SCB</a></span>
+      <span id="authorinfo">Skapad av <a href="http://github.com/jowl" target="_blank">Joel Segerlind</a>, 2015</span>
+    </footer>
     <script src="js/namntrender.min.js" charset="utf-8"></script>
   </body>
 </html>

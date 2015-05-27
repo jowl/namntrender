@@ -1,0 +1,60 @@
+html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 0px;
+  > series-chart {
+    flex: 1;
+    margin: 0px 15px;
+    min-height: 200px;
+  }
+}
+
+a {
+  color: #BF38FE;
+  text-decoration: none;
+  &:hover {
+    color: #A02BD7;
+    text-decoration: underline;
+  }
+}
+
+header, footer {
+  flex: 0 0 auto;
+}
+
+header {
+  display: flex;
+  flex-flow: row wrap;
+  background-color: #C4297B;
+  color: #fff;
+  > span {
+    font-weight: 500;
+    font-size: 28px;
+    flex: 0 1 content;
+    margin: 5px 15px;
+    text-shadow: rgba(0, 0, 0, 0.0980392) 0px 1px 0px;
+  }
+  > tags-input {
+    flex: 1 1;
+    margin: 0px 15px;
+    min-width: 200px;
+  }
+}
+
+footer {
+  display: flex;
+  flex-flow: row wrap;
+  border-top: 1px solid #bbb;
+  font-size: 0.8em;
+  color: #555;
+  padding-top: 5px;
+  margin: 5px 15px;
+  > * { flex: 1; }
+  #authorinfo { text-align: right; }
+}

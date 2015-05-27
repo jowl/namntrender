@@ -15,6 +15,7 @@
     "gulp-jshint": "^1.10.0",
     "gulp-load-plugins": "^0.10.0",
     "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.1",
     "gulp-serve": "^1.0.0",
     "gulp-size": "^1.2.1",
     "gulp-sourcemaps": "^1.5.2",
@@ -28,8 +29,8 @@
     "paths": {
       "main": "./app/assets/scripts/main.coffee",
       "scripts": "./app/assets/scripts/**/*.{js,coffee}",
-      "stylesheets": "./app/assets/stylesheets/*.css",
-      "views": "./app/views/*.html",
+      "stylesheets": "./app/assets/stylesheets/*.{s,}css",
+      "views": "./app/views/**/*.html",
       "public": "./public"
     }
   }

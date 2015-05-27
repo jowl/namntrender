@@ -1,0 +1,43 @@
+tags-input  {
+  .tags {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    &.focused {
+      border-color: #66afe9;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);
+    }
+    .tag-item {
+      background: #7A28A0;
+      border: 1px solid #55266B;
+      border-radius: 4px;
+      color: #fff;
+      &.selected {
+        background: #F13C32;
+        border: 1px solid #A03934;
+        border-radius: 4px;
+        color: #fff;
+      }
+      .remove-button { color: #fff; }
+    }
+  }
+  .autocomplete {
+    border-radius: 4px;
+    .suggestion-item {
+      &.selected {
+        color: #262626;
+        background-color: #e9e9e9;
+        em {
+          color: #262626;
+          background-color: #ffff00;
+        }
+      }
+      em {
+        font-weight: normal;
+        background-color: #ffff00;
+      }
+    }
+  }
+}

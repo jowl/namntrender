@@ -5,13 +5,13 @@ seriesLink = (scope, element, attrs) ->
   update = () ->
     element.selectAll('*').remove()
     return unless d3.keys(scope.series).length > 0
-    margin = {top: 20, right: 100, bottom: 30, left: 50}
-    parentRect = element[0][0].parentNode.getBoundingClientRect()
-    width = parentRect.width - margin.left - margin.right
-    height = 500 - margin.top - margin.bottom
+    margin = {top: 20, right: 50, bottom: 30, left: 20}
+    clientRect = element[0][0].getBoundingClientRect()
+    width = clientRect.width - margin.left - margin.right
+    height = clientRect.height - margin.top - margin.bottom
     x = d3.time.scale().range([0, width])
     y = d3.scale.linear().range([height, 0]).domain([0, 0.1])
-    xAxis = d3.svg.axis().scale(x).orient("bottom")
+    xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(Math.floor(width / 50))
     line = d3.svg.line()
       .x((d) -> x(d[scope.seriesX]))
       .y((d) -> y(d[scope.seriesY]))
@@ -26,7 +26,7 @@ seriesLink = (scope, element, attrs) ->
     x.domain(d3.extent(allMetrics, (d) -> d[scope.seriesX]))
     y.domain(d3.extent(allMetrics, (d) -> d[scope.seriesY]))
     svg.append("g")
-      .attr("class", "x axis")
+      .attr("class", "axis")
       .attr("transform", "translate(0,#{height})")
       .call(xAxis)
 
