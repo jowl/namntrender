@@ -5,6 +5,7 @@ var browserify = require("browserify");
 var source = require("vinyl-source-stream");
 var buffer = require("vinyl-buffer");
 var del = require("del");
+var autoprefixer = require("autoprefixer-core");
 
 gulp.task("jshint", function () {
   return gulp.src([pkg.config.paths.scripts, '!**/*.coffee'])
@@ -37,6 +38,7 @@ gulp.task("stylesheets", ["bower"], function(){
     .pipe(plug.size({showFiles: true}))
     .pipe(plug.sass())
     .pipe(plug.concatCss("main.css"))
+    .pipe(plug.postcss([autoprefixer({browsers: ['last 2 version']})]))
     .pipe(gulp.dest(pkg.config.paths.public + "/css"));
 });
 

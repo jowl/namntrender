@@ -3,6 +3,7 @@
   "name": "namntrender",
   "version": "0.0.0",
   "devDependencies": {
+    "autoprefixer-core": "^5.2.0",
     "browserify": "^10.2.1",
     "coffeeify": "^1.1.0",
     "debowerify": "^1.2.1",
@@ -14,6 +15,7 @@
     "gulp-if": "^1.2.5",
     "gulp-jshint": "^1.10.0",
     "gulp-load-plugins": "^0.10.0",
+    "gulp-postcss": "^5.1.8",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.1",
     "gulp-serve": "^1.0.0",
