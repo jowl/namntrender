@@ -1,15 +1,21 @@
-.axis {
-  line {
+series-chart {
+  text {
+    fill: #555;
+  }
+
+  .axis {
+    line {
+      fill: none;
+      stroke: #000;
+    }
+
+    path {
+      display: none;
+    }
+  }
+
+  .line {
     fill: none;
-    stroke: #000;
+    stroke-width: 2px;
   }
-
-  path {
-    display: none;
-  }
-}
-
-.line {
-  fill: none;
-  stroke-width: 2px;
 }
