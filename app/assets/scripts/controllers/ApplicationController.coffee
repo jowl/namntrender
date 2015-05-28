@@ -1,8 +1,7 @@
-ApplicationController = ($scope, $q, scb) ->
+ApplicationController = ($scope, $q, $location, scb) ->
   namesTable = scb.table('http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0001/BE0001T05AR')
   birthsTable = scb.table('http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101H/FoddaK')
   $scope.series = {}
-  $scope.filterValues = []
   $scope.loadNames = (query) ->
     extractNames = (meta) ->
       names = meta.variables.Tilltalsnamn
@@ -15,6 +14,7 @@ ApplicationController = ($scope, $q, scb) ->
     namesTable.meta().then(extractNames)
   loadSeries = () ->
     filterIds = $scope.filterValues.map((item) -> item.id)
+    $location.search('q', filterIds)
     if filterIds.length > 0
       buildSeries = (data) ->
         parseDate = d3.time.format('%Y').parse
@@ -52,6 +52,12 @@ ApplicationController = ($scope, $q, scb) ->
       $q.all(promises).then(buildSeries)
     else
       $scope.series = []
-  $scope.$watch('filterValues.length', loadSeries)
+  namesTable.meta().then (meta) ->
+    addIdName = (filterValues, id) ->
+      if meta.variables.Tilltalsnamn[id]
+        filterValues.push(id: id, name: meta.variables.Tilltalsnamn[id])
+      filterValues
+    $scope.filterValues = [].concat($location.search()['q']).reduce(addIdName, [])
+    $scope.$watch('filterValues.length', loadSeries)
 
-angular.module('namntrender').controller('ApplicationController', ['$scope', '$q', 'scb', ApplicationController])
+angular.module('namntrender').controller('ApplicationController', ['$scope', '$q', '$location', 'scb', ApplicationController])
