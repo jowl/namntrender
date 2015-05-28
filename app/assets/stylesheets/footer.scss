@@ -1,0 +1,38 @@
+footer {
+  flex: 0 0 0;
+  padding: 0px 15px;
+  order: 3;
+  position: relative;
+  top: -10px;
+  z-index: 2;
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  align-items: flex-end;
+
+  button {
+    background-color: #7A28A0;
+    color: #fff;
+    border-width: 0;
+    border-radius: 50%;
+    min-height: 30px;
+    min-width: 30px;
+    font-size: 18px;
+    font-weight: 200;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    flex: 0;
+    &:hover { background-color: #55266B; }
+  }
+
+  div.about {
+    flex: 1;
+    background-color: #fff;
+    padding: 0 15px;
+    margin-right: 15px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    max-width: 400px;
+    > p {
+      margin: 0 0 10px 0;
+    }
+  }
+}

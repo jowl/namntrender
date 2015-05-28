@@ -4,6 +4,8 @@ html {
 
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
   height: 100%;
   display: flex;
   flex-flow: column nowrap;
@@ -11,21 +13,36 @@ body {
   > series-chart {
     flex: 1;
     margin: 0px 15px;
-    min-height: 200px;
   }
 }
 
 a {
-  color: #BF38FE;
+  color: #7A28A0;
   text-decoration: none;
   &:hover {
-    color: #A02BD7;
+    color: #55266B;
     text-decoration: underline;
   }
 }
 
-header, footer {
+header {
   flex: 0 0 auto;
+}
+
+h1,h2 {
+  font-weight: 500;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 28px;
+  line-height: 30px;
+}
+
+h2 {
+  font-size: 18px;
+  line-height: 20px;
 }
 
 header {
@@ -33,10 +50,7 @@ header {
   flex-flow: row wrap;
   background-color: #C4297B;
   color: #fff;
-  > span {
-    font-weight: 500;
-    font-size: 28px;
-    flex: 0 1 content;
+  > h1 {
     margin: 5px 15px;
     text-shadow: rgba(0, 0, 0, 0.0980392) 0px 1px 0px;
   }
@@ -45,16 +59,4 @@ header {
     margin: 0px 15px;
     min-width: 200px;
   }
-}
-
-footer {
-  display: flex;
-  flex-flow: row wrap;
-  border-top: 1px solid #bbb;
-  font-size: 0.8em;
-  color: #555;
-  padding-top: 5px;
-  margin: 5px 15px;
-  > * { flex: 1; }
-  #authorinfo { text-align: right; }
 }
