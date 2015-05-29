@@ -9,14 +9,18 @@ footer {
   flex-flow: row-reverse nowrap;
   align-items: flex-end;
 
+  $button-diameter: 30px;
   button {
     background-color: #7A28A0;
     color: #fff;
     border-width: 0;
     border-radius: 50%;
-    min-height: 30px;
-    min-width: 30px;
+    min-height: $button-diameter;
+    max-height: $button-diameter;
+    min-width: $button-diameter;
+    max-width: $button-diameter;
     font-size: 18px;
+    padding: 0;
     font-weight: 200;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
     cursor: pointer;
