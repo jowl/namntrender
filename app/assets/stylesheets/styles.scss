@@ -1,5 +1,7 @@
 html {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -7,9 +9,11 @@ body {
   font-size: 14px;
   line-height: 20px;
   height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
   display: flex;
   flex-flow: column nowrap;
-  margin: 0px;
   > series-chart {
     flex: 1;
     margin: 0px 15px;
