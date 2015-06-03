@@ -11,9 +11,11 @@
   <body ng-controller="ApplicationController">
     <header>
       <h1>Namntrender</h1>
-      <tags-input ng-model="filterValues" display-property="name" add-from-autocomplete-only="true" placeholder="Lägg till ett namn">
-        <auto-complete source="loadNames($query)" min-length="1"></auto-complete>
-      </tags-input>
+      <div class="input-wrapper">
+        <tags-input ng-model="filterValues" display-property="name" add-from-autocomplete-only="true" placeholder="Lägg till ett namn">
+          <auto-complete source="loadNames($query)" min-length="1"></auto-complete>
+        </tags-input>
+      </div>
     </header>
     <series-chart series="series" series-x="date" series-y="ratio"></series-chart>
     <footer>
