@@ -1,3 +1,5 @@
+d3 = require('d3')
+
 ApplicationController = ($scope, $q, $location, scb) ->
   namesTable = scb.table('http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0001/BE0001T05AR')
   birthsTable = scb.table('http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101H/FoddaK')
