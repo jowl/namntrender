@@ -44,7 +44,7 @@ gulp.task("stylesheets", ["bower"], function(){
 
 gulp.task("scripts", ["bower", "lint"], function() {
   var bundler = browserify({entries: pkg.config.paths.main, debug: true});
-  bundler.transform("coffeeify")
+  bundler.transform("coffeeify");
   bundler.transform("debowerify");
   return bundler.bundle()
     .pipe(source(pkg.name + ".js"))
@@ -55,7 +55,7 @@ gulp.task("scripts", ["bower", "lint"], function() {
     .pipe(plug.sourcemaps.write('./'))
     .pipe(plug.rename(function(path) { if (path.extname == '.js') path.extname = '.min.js'; }))
     .pipe(plug.size({showFiles: true}))
-    .pipe(gulp.dest(pkg.config.paths.public + "/js"))
+    .pipe(gulp.dest(pkg.config.paths.public + "/js"));
 });
 
 gulp.task('watch', function() {
@@ -65,8 +65,8 @@ gulp.task('watch', function() {
 });
 
 gulp.task('clean', function() {
-  return del([pkg.config.paths.public + '/*'])
-})
+  return del([pkg.config.paths.public + '/*']);
+});
 
 gulp.task('serve', plug.serve(pkg.config.paths.public));
 
