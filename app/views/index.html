@@ -22,6 +22,17 @@
       <button ng-click="about = !about" ng-init="about = false">{{ about ? '&times;' : '?' }}</button>
       <div class="about" ng-include="'partials/about.html'" ng-show="about"></div>
     </footer>
+    <script>
+      var config = {
+        apiKey: "AIzaSyDNPjQrTh0HPA8eOIfK4lhGYFDvLSvP1Gk",
+        authDomain: "namntrender.firebaseapp.com",
+        databaseURL: "https://namntrender.firebaseio.com",
+        projectId: "namntrender",
+        storageBucket: "namntrender.appspot.com",
+        messagingSenderId: "857072009808"
+      };
+      firebase.initializeApp(config);
+    </script>
     <script src="js/namntrender.min.js" charset="utf-8"></script>
   </body>
 </html>
